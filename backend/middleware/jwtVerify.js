@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     }
 
     try {
-         const decoded = jwt.verify(token, "dairy-project");
+         const decoded = jwt.verify(token, `${process.env.AUTH_SECRET_KEY}`);
         // console.log("Decoded Token:", decoded);
 
         req.user = await Farmer.findById(decoded.farmer._id);
