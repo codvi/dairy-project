@@ -5,6 +5,6 @@ const salesRouter = express.Router();
 
 salesRouter.post('/createSales', auth, createSale);
 salesRouter.get('/getSales', auth, getSales);
-salesRouter.get('/getSaleById', auth, getSaleById);
+salesRouter.get('/getsale/:id', auth, getSaleById);
 
 module.exports = salesRouter;

@@ -63,14 +63,15 @@ exports.getSales = async (req, res) => {
 
 exports.getSaleById = async (req, res) => {
     try {
-        const sale = await Sale.findOne({ _id: req.params.id, farmer: req.user._id })
-            .populate('product', 'name description price') // Populate with product details
-            .exec();
+        const saleId = req.params.id;
+        const sale = await Sale.findById(saleId).populate('product', 'name price'); // Populate product details if needed
+
         if (!sale) {
-            return res.status(404).json({ message: 'Sale not found' });
+            return res.status(404).json({ message: "Sale not found" });
         }
+
         return res.status(200).json(sale);
     } catch (error) {
-        return res.status(500).json({ message: 'Server Error', error: error.message });
+        return res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
