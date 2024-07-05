@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
             return res.status(400).json({ errors: [{ msg: "Invalid credentials" }] });
         }
 
-        const token = jwt.sign({ farmer }, 'dairy-project', { expiresIn: '5h' });
+        const token = jwt.sign({ farmer }, `${process.env.AUTH_SECRET_KEY}`, { expiresIn: '5h' });
         console.log(token);
 
         return res.status(200).json({ message: "Logged in successfully", token });

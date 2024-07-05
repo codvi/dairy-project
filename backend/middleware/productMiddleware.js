@@ -4,12 +4,11 @@ exports.createProduct = async (req, res) => {
     try {
         let productID;
 
-        // Generate a unique productID
         while (!productID) {
-            const tempProductID = Math.floor(100000 + Math.random() * 900000); // Generate a random 6-digit number
+            const tempProductID = Math.floor(100000 + Math.random() * 900000); 
             const existingProduct = await Product.findOne({ productID: tempProductID });
             if (!existingProduct) {
-                productID = tempProductID; // Set productID if unique
+                productID = tempProductID; 
             }
         }
 
@@ -27,7 +26,6 @@ exports.createProduct = async (req, res) => {
     }
 };
 
-// Get all products for the authenticated farmer
 exports.getProducts = async (req, res) => {
     try {
         const products = await Product.find({ farmer: req.user._id });
@@ -49,7 +47,6 @@ exports.getProductById = async (req, res) => {
     }
 };
 
-// Update a product by productID for the authenticated farmer
 exports.updateProduct = async (req, res) => {
     try {
         const updatedProduct = await Product.findOneAndUpdate(
@@ -66,7 +63,6 @@ exports.updateProduct = async (req, res) => {
     }
 };
 
-// Delete a product by productID for the authenticated farmer
 exports.deleteProduct = async (req, res) => {
     try {
         const deletedProduct = await Product.findOneAndDelete({ productID: req.params.id, farmer: req.user._id });
