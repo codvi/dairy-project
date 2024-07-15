@@ -11,7 +11,7 @@ export default function Sidebar() {
         <li>
           <Link
             to="overview"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-7 00"
           >
             Overview
           </Link>
@@ -34,10 +34,26 @@ export default function Sidebar() {
         </li>
         <li>
           <Link
+            to="expense"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            Expenses
+          </Link>
+        </li>
+        <li>
+          <Link
             to="financials"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
             Financials
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="livestock"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            Livestock
           </Link>
         </li>
       </ul>

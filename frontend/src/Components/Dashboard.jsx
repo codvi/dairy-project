@@ -4,6 +4,8 @@ import Overview from '../Pages/Overview';
 import Products from '../Pages/Products';
 import Sales from '../Pages/Sales';
 import Financials from '../Pages/Financials';
+import Expenses from '../Pages/Expenses';
+import Livestock from '../Pages/Livestock';
 
 export default function Dashboard() {
   return (
@@ -16,8 +18,10 @@ export default function Dashboard() {
           <Route path="products" element={<Products />} />
           <Route path="sales" element={<Sales />} />
           <Route path="financials" element={<Financials />} />
+          <Route path='expense' element={<Expenses/>}></Route>
+          <Route path='livestock' element={<Livestock/>}></Route>
         </Routes>
-      </div>
+      </div>  
     </div>
   );
 }
