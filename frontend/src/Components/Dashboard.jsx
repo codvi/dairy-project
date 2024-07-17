@@ -6,6 +6,7 @@ import Sales from '../Pages/Sales';
 import Financials from '../Pages/Financials';
 import Expenses from '../Pages/Expenses';
 import Livestock from '../Pages/Livestock';
+import Breedingrecord from '../Pages/BreedingRecord';
 
 export default function Dashboard() {
   return (
@@ -20,6 +21,7 @@ export default function Dashboard() {
           <Route path="financials" element={<Financials />} />
           <Route path='expense' element={<Expenses/>}></Route>
           <Route path='livestock' element={<Livestock/>}></Route>
+          <Route path='breedingrecord' element={<Breedingrecord/>}></Route>
         </Routes>
       </div>  
     </div>

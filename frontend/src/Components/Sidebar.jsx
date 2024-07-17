@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
@@ -54,6 +53,14 @@ export default function Sidebar() {
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
             Livestock
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="breedingrecord"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            Breeding Record
           </Link>
         </li>
       </ul>

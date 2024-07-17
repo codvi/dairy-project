@@ -111,11 +111,11 @@ export default function Products() {
   };
 
   return (
-    <div className=" px-5 py-8 bg-green-50">
+    <div className=" px-5 py-8 bg-green-50 min-h-screen">
       <h2 className="text-3xl font-bold text-green-700">Products</h2>
       <div className="mt-6">
         <h3 className="text-2xl font-semibold text-green-600 flex justify-center">Add New Product</h3>
-        <div className="mt-4">
+        <div className="mt  -4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:justify-center mb-4">
           <input
             type="text"

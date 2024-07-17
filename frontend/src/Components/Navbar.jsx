@@ -3,24 +3,22 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [farmerName, setFarmerName] = useState(''); // State to store farmer name
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [farmerName, setFarmerName] = useState(''); 
 
   useEffect(() => {
-    // Check if token exists in localStorage to determine login status
     const token = localStorage.getItem('token');
     if (token) {
-      setIsLoggedIn(true); // User is logged in
-      // Decode token to get farmer details (assuming it's in JWT format)
+      setIsLoggedIn(true); 
       try {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        setFarmerName(decodedToken.farmer.farmerName); // Assuming farmerName is part of your decoded token
+        setFarmerName(decodedToken.farmer.farmerName); 
       } catch (error) {
         console.error('Error decoding token:', error);
         setIsLoggedIn(false);
       }
     } else {
-      setIsLoggedIn(false); // User is not logged in
+      setIsLoggedIn(false); 
     }
   }, []);
 
@@ -56,7 +54,7 @@ export default function Navbar() {
               <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 focus:outline-none">Sign Out</button>
             </div>
           ) : (
-            <Link className="text-gray-700 hover:text-gray-900" to="/login">Login</Link>
+            <Link className="border px-2 py-1 bg-sky-300 rounded-lg text-gray-700 hover:text-gray-900" to="/login">Login</Link>
           )}
           <button onClick={toggleMenu} className="md:hidden ml-4 text-gray-700 focus:outline-none">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +70,7 @@ export default function Navbar() {
             <li><Link className="block text-gray-700 hover:text-gray-900" to="/cart"><i className="bi bi-cart"></i> Cart</Link></li>
             <li>
               {isLoggedIn ? (
-                <button onClick={handleLogout} className="block text-gray-700 hover:text-gray-900 focus:outline-none">Sign Out</button>
+                <button onClick={handleLogout} className="border block text-gray-700 hover:text-gray-900 focus:outline-none">Sign Out</button>
               ) : (
                 <Link className="block text-gray-700 hover:text-gray-900" to="/login">Login</Link>
               )}

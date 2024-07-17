@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   LineChart,
@@ -37,13 +37,20 @@ export default function Financials() {
         setExpensesTotal(totalExpenses);
         setNetEarningsTotal(netIncome);
 
-        const data = sales.map((sale, index) => ({
-          date: new Date(sale.saleDate).toLocaleDateString(),
-          sales: sale.totalPrice,
-          expenses: expenses[index] ? expenses[index].amount : 0,
-          netEarnings:
-            sale.totalPrice - (expenses[index] ? expenses[index].amount : 0),
-        }));
+        // Process and merge sales and expenses data
+        const combinedData = mergeData(sales, expenses);
+
+        // Generate date range from the earliest sale date to today
+        const dates = generateDateRange(sales[0].saleDate, new Date());
+        const data = dates.map((date) => {
+          const dateString = date.toISOString().split('T')[0];
+          return {
+            date: dateString,
+            sales: combinedData[dateString]?.sales || 0,
+            expenses: combinedData[dateString]?.expenses || 0,
+            netEarnings: combinedData[dateString]?.netEarnings || 0,
+          };
+        });
 
         setChartData(data);
 
@@ -54,12 +61,49 @@ export default function Financials() {
 
         setPercentageData({
           weekly: weeklyDifference !== null ? weeklyDifference : "N/A",
-          monthly: monthlyDifference != null ? monthlyDifference : "N/A",
+          monthly: monthlyDifference !== null ? monthlyDifference : "N/A",
           yearly: yearlyDifference !== null ? yearlyDifference : "N/A",
         });
       })
       .catch((error) => console.error("Error fetching financial data:", error));
   }, []);
+
+  const mergeData = (sales, expenses) => {
+    const salesData = sales.map((sale) => ({
+      date: new Date(sale.saleDate).toISOString().split('T')[0],
+      sales: sale.totalPrice,
+      expenses: 0,
+    }));
+
+    const expensesData = expenses.map((expense) => ({
+      date: new Date(expense.expenseDate).toISOString().split('T')[0],
+      sales: 0,
+      expenses: expense.amount,
+    }));
+
+    const combinedData = [...salesData, ...expensesData].reduce((acc, current) => {
+      const date = current.date;
+      if (!acc[date]) {
+        acc[date] = { date, sales: 0, expenses: 0, netEarnings: 0 };
+      }
+      acc[date].sales += current.sales;
+      acc[date].expenses += current.expenses;
+      acc[date].netEarnings = acc[date].sales - acc[date].expenses;
+      return acc;
+    }, {});
+
+    return combinedData;
+  };
+
+  const generateDateRange = (startDate, endDate) => {
+    const dates = [];
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dates;
+  };
 
   const calculatePercentageDifference = (data, timeframe) => {
     const currentDate = new Date();
