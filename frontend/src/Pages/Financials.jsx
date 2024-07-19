@@ -37,10 +37,8 @@ export default function Financials() {
         setExpensesTotal(totalExpenses);
         setNetEarningsTotal(netIncome);
 
-        // Process and merge sales and expenses data
         const combinedData = mergeData(sales, expenses);
 
-        // Generate date range from the earliest sale date to today
         const dates = generateDateRange(sales[0].saleDate, new Date());
         const data = dates.map((date) => {
           const dateString = date.toISOString().split('T')[0];

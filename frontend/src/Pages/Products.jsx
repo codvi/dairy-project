@@ -10,6 +10,7 @@ export default function Products() {
     category: "",
     stock: "",
     image: "",
+    minProducts: ""
   });
   const [editingProduct, setEditingProduct] = useState(null);
 
@@ -64,6 +65,7 @@ export default function Products() {
         category: "",
         stock: "",
         image: "",
+        minProducts: ""
       });
     } catch (error) {
       console.error("Error adding product:", error);
@@ -165,6 +167,14 @@ export default function Products() {
             onChange={handleInputChange}
             className="border p-2 rounded-lg"
           />
+          <input
+            type="number"
+            name="minProducts"
+            placeholder="Minimum Stock After which you want reminder"
+            value={newProduct.minProducts}
+            onChange={handleInputChange}
+            className="border p-2 rounded-lg"
+            />
           </div>
           <div className="flex justify-center">
           <button
@@ -252,6 +262,19 @@ export default function Products() {
                     }
                     className="border p-2 rounded-lg"
                   />
+                  <input
+                  type="number"
+                  name="minProducts"
+                  placeholder="Minimum Stock After which you want reminder"
+                  value={editingProduct.minProducts}
+                  onChange={(e) => 
+                    setEditingProduct({
+                        ...editingProduct,
+                        minProducts: e.target.value,
+                      })
+                    }
+                    className="border p-2 rounded-lg"
+                  />
                   <button
                     onClick={() => handleEditProduct(product.productID)}
                     className="bg-green-600 text-white p-2 rounded-lg hover:bg-green-700"
@@ -267,6 +290,9 @@ export default function Products() {
                   <p className="text-green-600">Description: {product.description}</p>
                   <p className="text-green-600">Category: {product.category}</p>
                   <p className="text-green-600">Stock: {product.stock}</p>
+                  <p className="text-green-600">
+                    Min Stock Needed: {product.minProducts}
+                  </p>
                   {product.image && (
                     <img
                       src={product.image}

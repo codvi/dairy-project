@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import {FaBoxOpen, FaChartLine, FaMoneyBillWave, FaRegListAlt, FaHeartbeat, FaClinicMedical } from 'react-icons/fa';
+import { GiAnimalSkull } from "react-icons/gi";
 
 export default function Sidebar() {
   return (
@@ -7,60 +9,68 @@ export default function Sidebar() {
         <h2 className="text-2xl font-bold">Dashboard</h2>
       </div>
       <ul className="space-y-2">
-        <li>
+        {/* <li>
           <Link
             to="overview"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-7 00"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Overview
+            <FaTachometerAlt className="mr-3" /> Overview
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link
             to="products"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Products
+            <FaBoxOpen className="mr-3" /> Products
           </Link>
         </li>
         <li>
           <Link
             to="sales"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Sales
+            <FaChartLine className="mr-3" /> Sales
           </Link>
         </li>
         <li>
           <Link
             to="expense"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Expenses
+            <FaRegListAlt className="mr-3" /> Expenses
           </Link>
         </li>
         <li>
           <Link
             to="financials"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Financials
+            <FaMoneyBillWave className="mr-3" /> Financials
           </Link>
         </li>
         <li>
           <Link
             to="livestock"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Livestock
+            <GiAnimalSkull className="mr-3" /> Livestock
           </Link>
         </li>
         <li>
           <Link
             to="breedingrecord"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
-            Breeding Record
+            <FaHeartbeat className="mr-3" /> Breeding Record
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="healthrecord"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            <FaClinicMedical className="mr-3" /> Health Records
           </Link>
         </li>
       </ul>
