@@ -1,25 +1,8 @@
-Dairy Management System 
+# React + Vite
 
-Description: Build a system to manage daily stocks and livelihood for dairy farmers. The platform should help farmers track their dairy production and sales efficiently. 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Features: 
+Currently, two official plugins are available:
 
-Farmer registration and authentication (MongoDB, Express, React, Node.js). 
-
-Daily stock management for milk and other dairy products. 
-
-Sales tracking and reporting. 
-
-Livestock management including health and breeding records. 
-
-Financial management for expenses and earnings. 
-
-Notifications for important events (e.g., low stock, health check reminders). 
-
-Admin panel to oversee system operations. 
-
-Mobile-responsive design. 
-
-ChatGPT API Integration for providing farming tips and support. 
-
- 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
