@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import 'animate.css';
+import { FaTimes } from 'react-icons/fa';
+import emailjs from 'emailjs-com';
 
 const ContactForm = ({ isVisible, onClose }) => {
   const [formData, setFormData] = useState({
@@ -40,31 +42,25 @@ const ContactForm = ({ isVisible, onClose }) => {
     setError(null);
     setSuccess(null);
 
-    try {
-      const response = await fetch('YOUR_API_ENDPOINT_HERE', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
+    emailjs.send(
+      '7j0cehp',
+      '09f0f9b',
+      formData,
+      'aJDqyTXSy0t2G9k2i'
+    ).then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
       setSuccess('Your message has been sent successfully!');
       setFormData({
         name: '',
         email: '',
         message: ''
       });
-    } catch (err) {
-      setError('There was a problem sending your message.');
-    } finally {
       setIsSubmitting(false);
-    }
+    }).catch((err) => {
+      console.error('EmailJS Error:', err);
+      setError(`There was a problem sending your message. Error: ${err.text}`);
+      setIsSubmitting(false);
+    });
   };
 
   return (
@@ -73,7 +69,7 @@ const ContactForm = ({ isVisible, onClose }) => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">Contact Us</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <i className="fas fa-times text-xl"></i>
+            <FaTimes className="text-xl" />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
