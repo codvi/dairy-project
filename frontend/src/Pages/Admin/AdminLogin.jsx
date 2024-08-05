@@ -14,7 +14,7 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
     try {
-      await axios.post('http://localhost:3000/loginadmin', { email, password });
+      await axios.post('http://localhost:3000/admin/loginadmin', { email, password });
     //   localStorage.setItem('token', res.data.token);
       setLoading(false);
       navigate('/admin/dashboard');

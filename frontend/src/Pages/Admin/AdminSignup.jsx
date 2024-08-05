@@ -15,7 +15,7 @@ export default function AdminSignup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/registeradmin', { adminName, email, phone, password });
+      await axios.post('http://localhost:3000/admin/registeradmin', { adminName, email, phone, password });
       navigate('/admin/login');
     } catch (err) {
       setError(err.response.data.errors ? err.response.data.errors[0].msg: 'Server Error');
@@ -70,13 +70,13 @@ export default function AdminSignup() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
+            className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200"
           >
             Sign Up
           </button>
         </form>
         <p className="text-center mt-4 text-gray-600">
-          Already have an account? <Link to="/admin/login" className="text-blue-500 hover:underline">Sign In</Link>
+          Already have an account? <Link to="/admin/login" className="text-green-500 hover:underline">Sign In</Link>
         </p>
       </div>
     </div>

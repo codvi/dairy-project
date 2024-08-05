@@ -321,7 +321,7 @@ export default function HealthRecord() {
             </div>
           ))
         ) : (
-          <p className="text-green-700">
+          <p className="text-green-700 font-bold">
             Please select a livestock to view its health records.
           </p>
         )}

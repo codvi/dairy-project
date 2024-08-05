@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
-import {FaBoxOpen, FaChartLine, FaMoneyBillWave, FaRegListAlt, FaHeartbeat, FaClinicMedical } from 'react-icons/fa';
+import { FaRobot, FaBoxOpen, FaChartLine, FaMoneyBillWave, FaRegListAlt, FaHeartbeat, FaClinicMedical, FaBell } from 'react-icons/fa';
 import { GiAnimalSkull } from "react-icons/gi";
 
 export default function Sidebar() {
   return (
     <div className="bg-green-600 text-white w-64 flex-shrink-0">
       <div className="p-4">
-        <h2 className="text-2xl font-bold">Dashboard</h2>
+        <h2 className="text-3xl font-bold">Dashboard</h2>
       </div>
-      <ul className="space-y-2">
-        {/* <li>
+      <ul className="space-y-2 text-lg">
+        <li>
           <Link
-            to="overview"
-            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+            to="notifications"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700 relative"
           >
-            <FaTachometerAlt className="mr-3" /> Overview
+            <FaBell className="mr-3" /> Notifications
           </Link>
-        </li> */}
+        </li>
         <li>
           <Link
             to="products"
@@ -71,6 +71,22 @@ export default function Sidebar() {
             className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
           >
             <FaClinicMedical className="mr-3" /> Health Records
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="ai"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            <FaRobot className="mr-3" /> Ai Assistance
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="deleteaccount"
+            className="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-green-700"
+          >
+            <FaRobot className="mr-3" /> Delete Account
           </Link>
         </li>
       </ul>

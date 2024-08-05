@@ -10,7 +10,7 @@ export default function Livestock() {
     birthDate: "",
     gender: "",
   });
-  const [editingLivestock, setEditingLivestock] = useState({});
+  const [editingLivestock, setEditingLivestock] = useState(null);
 
   useEffect(() => {
     const fetchLivestock = async () => {
@@ -33,23 +33,27 @@ export default function Livestock() {
   }, []);
 
   const handleSubmit = async (e) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:3000/addLivestock",
-      newLivestock,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    setLivestock([...livestock, response.data]);
-    setNewLivestock({
-      name: "",
-      type: "",
-      breed: "",
-      birthDate: "",
-      gender: "",
-    });
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:3000/addLivestock",
+        newLivestock,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setLivestock([...livestock, response.data]);
+      setNewLivestock({
+        name: "",
+        type: "",
+        breed: "",
+        birthDate: "",
+        gender: "",
+      });
+    } catch (error) {
+      console.error("Error adding livestock", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -61,29 +65,37 @@ export default function Livestock() {
   };
 
   const handleEditSubmit = async (e) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
-    await axios.post(
-      `http://localhost:3000/updateLivestock/${editingLivestock._id}`,
-      editingLivestock,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    setLivestock(
-      livestock.map((item) =>
-        item._id === editingLivestock._id ? editingLivestock : item
-      )
-    );
-    setEditingLivestock({});
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(
+        `http://localhost:3000/updateLivestock/${editingLivestock._id}`,
+        editingLivestock,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setLivestock(
+        livestock.map((item) =>
+          item._id === editingLivestock._id ? editingLivestock : item
+        )
+      );
+      setEditingLivestock(null);
+    } catch (error) {
+      console.error("Error updating livestock", error);
+    }
   };
 
-  const deleteLivestock = async (livestock) => {
-    const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:3000/deleteLivestock/${livestock._id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setLivestock(livestock.filter((item) => item._id !== livestock._id));
+  const deleteLivestock = async (livestockItem) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:3000/deleteLivestock/${livestockItem._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setLivestock(livestock.filter((item) => item._id !== livestockItem._id));
+    } catch (error) {
+      console.error("Error deleting livestock", error);
+    }
   };
 
   return (
@@ -146,7 +158,7 @@ export default function Livestock() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           {livestock.map((item) => (
             <div
-              key={item._id}
+              key={item._id} // Add the unique key here
               className="rounded-lg bg-white shadow-md p-4 border-l-4 border-green-700"
             >
               {editingLivestock && editingLivestock._id === item._id ? (
@@ -154,7 +166,7 @@ export default function Livestock() {
                   <input
                     type="text"
                     name="name"
-                    value={editingLivestock.name}
+                    defaultValue={editingLivestock.name}
                     placeholder="Name"
                     className="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     onChange={handleEditInputChange}
@@ -162,7 +174,7 @@ export default function Livestock() {
                   <input
                     type="text"
                     name="type"
-                    value={editingLivestock.type}
+                    defaultValue={editingLivestock.type}
                     placeholder="Animal"
                     className="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     onChange={handleEditInputChange}
@@ -170,7 +182,7 @@ export default function Livestock() {
                   <input
                     type="text"
                     name="breed"
-                    value={editingLivestock.breed}
+                    defaultValue={editingLivestock.breed}
                     placeholder="Breed"
                     className="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     onChange={handleEditInputChange}
@@ -178,7 +190,7 @@ export default function Livestock() {
                   <input
                     type="date"
                     name="birthDate"
-                    value={editingLivestock.birthDate.split('T')[0]}
+                    defaultValue={editingLivestock.birthDate}
                     placeholder="Birth Date"
                     className="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     onChange={handleEditInputChange}
@@ -186,7 +198,7 @@ export default function Livestock() {
                   <input
                     type="text"
                     name="gender"
-                    value={editingLivestock.gender}
+                    defaultValue={editingLivestock.gender}
                     placeholder="Gender"
                     className="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                     onChange={handleEditInputChange}
@@ -201,7 +213,7 @@ export default function Livestock() {
                     <button
                       type="button"
                       className="border py-2 px-3 bg-red-500 hover:bg-red-600 rounded-lg text-white"
-                      onClick={() => setEditingLivestock({})}
+                      onClick={() => setEditingLivestock(null)}
                     >
                       Cancel
                     </button>
@@ -227,13 +239,13 @@ export default function Livestock() {
                   </p>
                   <div className="mt-3 flex gap-3">
                     <button
-                      className="border py-2 px-3 bg-yellow-300 hover:bg-yellow-400 rounded-lg mb-1"
+                      className="border py-2 px-3 text-white bg-amber-400 hover:bg-yellow-500 rounded-lg mb-1"
                       onClick={() => setEditingLivestock(item)}
                     >
                       Edit
                     </button>
                     <button
-                      className="border py-2 px-3 bg-red-400 hover:bg-red-600 rounded-lg"
+                      className="border py-2 px-3 text-white bg-red-400 hover:bg-red-600 rounded-lg"
                       onClick={() => deleteLivestock(item)}
                     >
                       Delete
@@ -247,4 +259,5 @@ export default function Livestock() {
       </div>
     </div>
   );
+  
 }

@@ -67,7 +67,7 @@ export default function Sales() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setSales([...sales, response.data]);
+      setSales([...sales, response.data.sale]);
       setNewSale({ productID: "", quantity: "", customer: "" });
       fetchSales();
     } catch (error) {
@@ -90,7 +90,7 @@ export default function Sales() {
           >
             <option value="">Select Product</option>
             {products.map((product) => (
-              <option key={product.productID} value={product.productID}>
+              <option key={product._id} value={product._id}>
                 {product.name}
               </option>
             ))}
@@ -125,15 +125,18 @@ export default function Sales() {
       <div className="mt-8">
         <h3 className="text-xl py-5 font-semibold text-green-700">Sales List</h3>
         <ul className="grid md:grid-cols-3 gap-3">
-          {sales.map((sale) => (
-            <li key={sale._id} className="border p-4 rounded bg-green-200 hover:bg-green-300">
-              <p className="font-semibold">Product Name: {products.find((product) => product._id === sale.product._id)?.name}</p>
-              <p>Quantity: {sale.quantity}</p>
-              <p>Customer: {sale.customer}</p>
-              <p>Total Price: {sale.totalPrice}</p>
-              <p>Sale Date: {new Date(sale.saleDate).toLocaleDateString()}</p>
-            </li>
-          ))}
+          {sales.map((sale) => {
+            const product = products.find((product) => product._id === sale.product._id);
+            return (
+              <li key={sale._id} className="border p-4 rounded bg-green-200 hover:bg-green-300">
+                <p className="font-semibold">Product Name: {product ? product.name : "Unknown"}</p>
+                <p>Quantity: {sale.quantity}</p>
+                <p>Customer: {sale.customer}</p>
+                <p>Total Price: {sale.totalPrice}</p>
+                <p>Sale Date: {new Date(sale.saleDate).toLocaleDateString()}</p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

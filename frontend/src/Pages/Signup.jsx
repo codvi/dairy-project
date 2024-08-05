@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 export default function Signup() {
   const [farmerName, setFarmerName] = useState('');
@@ -84,6 +85,9 @@ export default function Signup() {
             Sign Up
           </button>
         </form>
+        <p className="text-center mt-4 text-gray-600">
+          Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Sign In</Link>
+        </p>
       </div>
     </div>
   );

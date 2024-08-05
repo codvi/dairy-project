@@ -95,7 +95,7 @@ export default function AdminHome() {
 
   const handleAddFarmer = async () => {
     try {
-      await axios.post("http://localhost:3000/admin/addfarmer", newFarmerData);
+      await axios.post("http://localhost:3000/admin/addfarmers", newFarmerData);
       setFarmers([...farmers, newFarmerData]);
       setNewFarmerData({
         farmerName: "",
