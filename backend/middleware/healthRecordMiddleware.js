@@ -18,6 +18,14 @@ exports.getHealthRecords = async (req, res) => {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
+exports.fetchAll = async (req, res) => {
+    try {
+        const healthRecords = await HealthRecord.find();
+        res.status(200).json(healthRecords);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+}
 
 exports.getHealthRecordById = async (req, res) => {
     try {
